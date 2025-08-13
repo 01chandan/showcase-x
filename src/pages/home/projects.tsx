@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ArrowRight, Sparkles } from 'lucide-react';
@@ -19,7 +20,7 @@ const servicesData: Service[] = [
     id: '01',
     title: 'UI/UX Design',
     tags: ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing'],
-    description: 'Crafting intuitive and engaging user experiences through meticulous research, wireframing, and user-centered design principles to create products that are both beautiful and easy to use.',
+    description: 'Crafting intuitive and engaging user experiences through meticulous research, wireframing, and user-centesky design principles to create products that are both beautiful and easy to use.',
     imageUrl: 'https://placehold.co/600x400/e2e8f0/4a5568?text=UI/UX+Sketch',
   },
   {
@@ -62,15 +63,15 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
       onClick={onToggle}
       // We apply a spring transition to the layout change itself. This makes the container resize smoothly.
       transition={{ type: 'spring', damping: 20, stiffness: 150 }}
-      className={`cursor-pointer overflow-hidden rounded-2xl transition-colors duration-300 ${isOpen ? 'bg-zinc-900 text-white' : 'bg-gray-100 hover:bg-gray-200 text-zinc-900'}`}
+      className={`cursor-pointer overflow-hidden rounded-xl transition-colors duration-300 ${isOpen ? 'bg-zinc-900 text-white' : 'bg-gray-100/20 hover:bg-gray-200/40 text-zinc-900'}`}
     >
-      <motion.div layout className="flex items-center justify-between p-6 md:p-8">
+      <motion.div layout className="flex items-center justify-between p-3 md:p-4">
         <div className="flex items-center gap-4 md:gap-6">
-          <span className="text-2xl md:text-3xl font-light text-zinc-500">{service.id}.</span>
-          <h3 className="text-xl md:text-3xl font-medium">{service.title}</h3>
+          <span className="text-2xl md:text-2xl font-light text-[#ffffff]/60">{service.id}.</span>
+          <h3 className="text-xl md:text-2xl font-medium text-[#ffffff]">{service.title}</h3>
         </div>
         <motion.div
-          className={`flex items-center justify-center w-8 h-8 rounded-full ${isOpen ? 'bg-red-500 text-white' : 'bg-white text-zinc-900'}`}
+          className={`flex items-center justify-center w-8 h-8 rounded-full ${isOpen ? 'bg-sky-500 text-white' : 'bg-white text-zinc-900'}`}
         >
           {/* The icon rotation animation is enhanced with a spring for a smoother effect */}
           <motion.div
@@ -111,7 +112,7 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
             className="overflow-hidden"
           >
             {/* The padding is now inside this inner div to prevent it from being clipped weirdly */}
-            <div className="border-t border-zinc-700 p-6 md:p-8 pt-6">
+            <div className="border-t border-zinc-700 p-5">
               <div className="flex flex-wrap gap-2 mb-4">
                 {service.tags.map((tag, index) => (
                   <span key={index} className="bg-zinc-800 text-zinc-300 text-sm px-3 py-1 rounded-full">
@@ -119,12 +120,22 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
                   </span>
                 ))}
               </div>
-              <p className="text-zinc-400 mb-6 max-w-3xl">{service.description}</p>
-              <div className="rounded-xl overflow-hidden">
+              <p className="text-zinc-400 mb-6 text-[15px] max-w-5xl">{service.description}</p>
+              <div className=" overflow-hidden grid grid-cols-2 gap-2.5">
                 <img
                   src={service.imageUrl}
                   alt={`${service.title} illustration`}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-[300px] object-cover rounded-3xl"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null; 
+                    target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
+                  }}
+                />
+                <img
+                  src={service.imageUrl}
+                  alt={`${service.title} illustration`}
+                  className="w-full h-[300px] object-cover rounded-3xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.onerror = null; 
@@ -152,23 +163,22 @@ export default function App() {
   };
 
   return (
-    <div className="bg-white font-sans text-zinc-900 py-16 sm:py-24">
+    <div className="bg-[#232323] font-sans text-zinc-900 py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 md:mb-16">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-0.5 bg-red-500"></div>
-              <span className="text-red-500 font-semibold">My Specialization</span>
+              <div className="w-4 h-0.5 bg-sky-500"></div>
+              <span className="text-sky-500 font-semibold">My Specialization</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight flex items-center gap-3">
-              Services I Provide
-              <Sparkles className="w-8 h-8 text-orange-400" />
+            <h2 className="text-4xl sm:text-5xl lg:text-4xl font-bold text-[#ffffff] tracking-tight flex items-center gap-3">
+              My Top Projects
             </h2>
           </div>
           <div className="flex items-end">
-            <p className="text-zinc-600 text-base md:text-lg max-w-md">
+            <p className="text-white/40 text-xs md:text-sm max-w-md">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
           </div>
@@ -191,7 +201,7 @@ export default function App() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-red-500 text-white font-semibold text-lg py-3 px-6 rounded-full flex items-center gap-3 shadow-lg shadow-red-500/30 transition-all duration-300 hover:shadow-xl hover:bg-red-600"
+            className="bg-sky-500 text-white font-semibold text-lg py-3 px-6 rounded-full flex items-center gap-3 shadow-lg shadow-sky-500/30 transition-all duration-300 hover:shadow-xl hover:bg-sky-600"
           >
             View All Services
             <div className="bg-zinc-900 w-8 h-8 rounded-full flex items-center justify-center">

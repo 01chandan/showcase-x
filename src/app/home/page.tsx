@@ -53,7 +53,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Omar Assis — Portfolio Hero</title>
+        <title>Chandan — Portfolio Hero</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Fonts: Inter */}
         <link
@@ -62,39 +62,17 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className="min-h-screen bg-neutral-800 flex items-center justify-center p-6">
+      <main className=" bg-[#232323] flex items-center justify-center p-6">
         <div
           ref={containerRef}
-          className="w-full max-w-6xl mx-auto"
+          className="w-full mx-auto "
           aria-hidden={false}
         >
           {/* Glassmorphic panel */}
-          <div className="relative bg-black/40 backdrop-blur-md rounded-3xl shadow-lg p-6 md:p-10 overflow-hidden">
+          <div className="relative bg-black/40 backdrop-blur-md rounded-3xl shadow-lg p-6 md:p-10 h-screen overflow-hidden">
             {/* subtle outer padding shadow effect */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none -z-10" />
 
-            {/* NAVBAR */}
-            <nav className="flex items-center justify-between text-sm text-gray-400 mb-6">
-              <div className="pl-2">Omar Assis</div>
-
-              <div className="flex items-center gap-3">
-                <button
-                  className="px-3 py-1 rounded-md border border-gray-700 text-gray-300 hover:bg-white/5 transition"
-                  aria-label="Home"
-                >
-                  Home
-                </button>
-              </div>
-
-              <div className="pr-2">
-                <button
-                  className="px-3 py-1 rounded-md border border-gray-700 text-gray-300 hover:bg-white/5 transition"
-                  aria-label="Contact"
-                >
-                  Contact
-                </button>
-              </div>
-            </nav>
 
             {/* HERO CONTENT */}
             <div className="relative min-h-[62vh] flex flex-col items-center justify-center">
@@ -112,14 +90,24 @@ const Home: NextPage = () => {
                     Web Designer
                   </div>
                   {/* arrow (small triangle) */}
-                  <div
-                    className="w-0 h-0 border-l-6 border-r-6 border-t-6 border-l-transparent border-r-transparent border-t-[#FF4D00] rotate-90"
-                    style={{ transform: "translateY(-4px) rotate(-14deg)" }}
-                  />
+                  <div className="w-4 h-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="#FF4D00"
+                      width="100%"
+                      height="100%"
+                      style={{ display: "inline-block", flexShrink: 0 }}
+                    >
+                      <g>
+                        <path d="M240,113.58a15.76,15.76,0,0,1-11.29,15l-76.56,23.56-23.56,76.56a15.77,15.77,0,0,1-15,11.29h-.3a15.77,15.77,0,0,1-15.07-10.67L33,53.41a1,1,0,0,1-.05-.16A16,16,0,0,1,53.25,32.9l.16.05L229.33,98.21A15.78,15.78,0,0,1,240,113.58Z" />
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </motion.div>
 
-              {/* Right parallax tag (Hi, I'm Omar Assis) */}
+              {/* Right parallax tag (Hi, I'm Chandan) */}
               <motion.div
                 style={{ x: rightTagX, y: rightTagY }}
                 className="absolute right-16 top-28 hidden sm:flex items-center"
@@ -131,7 +119,7 @@ const Home: NextPage = () => {
                     style={{ transform: "translateY(-4px) rotate(166deg)" }}
                   />
                   <div className="relative bg-gray-200/80 text-gray-900 px-3 py-2 rounded-md text-sm shadow-sm">
-                    Hi, I'm Omar Assis
+                    Hi, I'm Chandan
                   </div>
                 </div>
               </motion.div>

@@ -73,89 +73,33 @@ export default function App() {
 
     // Style for the active navigation link
     const activeLinkStyle = {
-        color: '#14b8a6', // teal-500
+        color: '#14b8a6', // sky-500
         fontWeight: 'bold',
     };
 
     return (
         <div className=" text-gray-900 dark:text-white  transition-colors duration-500">
-            <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 pb-2 backdrop-blur-sm max-w-6xl mx-auto">
-                <div className="container mx-auto flex justify-between items-center">
-                    {/* Left Side: Brand Name */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-2xl font-bold text-gray-800 dark:text-white"
-                    >
-                        CK
-                    </motion.div>
+            <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm ">
 
-                    {/* Center: Navigation Links for Desktop */}
-                    <motion.nav
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                        className="hidden md:flex items-center gap-8"
-                    >
-                        {navItems.map((item) => (
-                            <Link
-                                key={item}
-                                href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                                onClick={() => {
-                                    setActivePage(item);
-                                    setIsMenuOpen(false); // Close menu on click
-                                }}
-                                className="text-base w-full text-center px-2 py-1 rounded-md text-[#ffffff] dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-teal-900 transition-colors duration-300"
-                                style={activePage === item ? activeLinkStyle : {}}
-                            >
-                                {item}
-                            </Link>
-                        ))}
-                    </motion.nav>
-
-                    {/* Right Side: Actions */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.6 }}
-                        className="flex items-center gap-4"
-                    >
-                        <button
-                            onClick={handleResumeDownload}
-                            className="hidden sm:flex items-center justify-center gap-2 px-4 py-2 w-[140px] text-sm md:text-base bg-teal-500 text-white cursor-pointer rounded-full hover:bg-teal-600 transition-all duration-300 disabled:bg-teal-400 disabled:cursor-not-allowed"
-                            disabled={isDownloading}
+                <header className="max-w-7xl mx-auto bg-[#151515] px-2 py-1.5 mt-2 rounded-full">
+                    <div className="container mx-auto flex justify-between items-center">
+                        {/* Left Side: Brand Name */}
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="text-2xl font-bold text-[#ffffff]"
                         >
-                            {isDownloading ? (
-                                <>
-                                    <Loader2 size={18} className="animate-spin" />
-                                    <span>Downloading...</span>
-                                </>
-                            ) : (
-                                <>
-                                    <Download size={18} />
-                                    <span>Resume</span>
-                                </>
-                            )}
-                        </button>
+                            CK
+                        </motion.div>
 
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden">
-                            <button onClick={toggleMenu} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-                                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Mobile Menu */}
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="md:hidden mt-4 bg-white/80 dark:bg-black/80 backdrop-blur-lg rounded-lg p-4"
-                    >
-                        <nav className="flex flex-col items-center gap-4">
+                        {/* Center: Navigation Links for Desktop */}
+                        <motion.nav
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                            className="hidden md:flex items-center gap-8"
+                        >
                             {navItems.map((item) => (
                                 <Link
                                     key={item}
@@ -164,33 +108,92 @@ export default function App() {
                                         setActivePage(item);
                                         setIsMenuOpen(false); // Close menu on click
                                     }}
-                                    className="text-lg w-full text-center py-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-teal-100 dark:hover:bg-teal-900 transition-colors duration-300"
+                                    className="text-base w-full text-center px-2 py-1 rounded-md text-[#ffffff] dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-sky-900 transition-colors duration-300"
                                     style={activePage === item ? activeLinkStyle : {}}
                                 >
                                     {item}
                                 </Link>
                             ))}
+                        </motion.nav>
+
+                        {/* Right Side: Actions */}
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                            className="flex items-center gap-4"
+                        >
                             <button
                                 onClick={handleResumeDownload}
-                                className="flex sm:hidden w-full justify-center mt-2 items-center gap-2 px-4 py-2 text-base bg-teal-500 text-white cursor-pointer rounded-full hover:bg-teal-600 transition-colors duration-300 disabled:bg-teal-400 disabled:cursor-not-allowed"
+                                className="hidden sm:flex items-center justify-center gap-2 px-2 py-1.5 w-[120px] text-sm md:text-[15px] bg-sky-500 text-white cursor-pointer rounded-full hover:bg-sky-600 transition-all duration-300 disabled:bg-sky-400 disabled:cursor-not-allowed"
                                 disabled={isDownloading}
                             >
                                 {isDownloading ? (
                                     <>
-                                        <Loader2 size={18} className="animate-spin" />
+                                        <Loader2 size={17} className="animate-spin" />
                                         <span>Downloading...</span>
                                     </>
                                 ) : (
                                     <>
-                                        <Download size={18} />
+                                        <Download size={17} />
                                         <span>Resume</span>
                                     </>
                                 )}
                             </button>
-                        </nav>
-                    </motion.div>
-                )}
-            </header>
+
+                            {/* Mobile Menu Button */}
+                            <div className="md:hidden">
+                                <button onClick={toggleMenu} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                                    {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    {isMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="md:hidden mt-4 bg-white/80 dark:bg-black/80 backdrop-blur-lg rounded-lg p-4"
+                        >
+                            <nav className="flex flex-col items-center gap-4">
+                                {navItems.map((item) => (
+                                    <Link
+                                        key={item}
+                                        href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                                        onClick={() => {
+                                            setActivePage(item);
+                                            setIsMenuOpen(false); // Close menu on click
+                                        }}
+                                        className="text-lg w-full text-center py-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors duration-300"
+                                        style={activePage === item ? activeLinkStyle : {}}
+                                    >
+                                        {item}
+                                    </Link>
+                                ))}
+                                <button
+                                    onClick={handleResumeDownload}
+                                    className="flex sm:hidden w-full justify-center mt-2 items-center gap-2 px-4 py-2 text-base bg-sky-500 text-white cursor-pointer rounded-full hover:bg-sky-600 transition-colors duration-300 disabled:bg-sky-400 disabled:cursor-not-allowed"
+                                    disabled={isDownloading}
+                                >
+                                    {isDownloading ? (
+                                        <>
+                                            <Loader2 size={18} className="animate-spin" />
+                                            <span>Downloading...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Download size={18} />
+                                            <span>Resume</span>
+                                        </>
+                                    )}
+                                </button>
+                            </nav>
+                        </motion.div>
+                    )}
+                </header>
+            </div>
         </div>
     );
 }
