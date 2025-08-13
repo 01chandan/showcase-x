@@ -1,4 +1,5 @@
-import type { NextPage } from 'next';
+"use client"
+import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Apple,
@@ -22,13 +23,11 @@ import {
   Shield,
   Bot,
   Figma,
-  AppWindow,
-  Music,
-  ListTodo,
+  Music
 } from 'lucide-react';
-import React from 'react';
 
 // Define the type for the items in our lists
+// Using React.ElementType is a more general and robust way to handle icon components
 interface UseItem {
   name: string;
   icon: React.ElementType;
@@ -73,15 +72,25 @@ const packageManagers: UseItem[] = [
 
 const software: UseItem[] = [
   { name: 'Brave', icon: Shield },
-  { name: 'Microsoft Edge', icon: AppWindow },
+  { name: 'Microsoft Edge', icon: Home },
   { name: 'ChatGPT', icon: Bot },
   { name: 'Figma', icon: Figma },
-  { name: 'Raycast', icon: AppWindow },
+  { name: 'Raycast', icon: Home },
   { name: 'Spotify', icon: Music },
-  { name: 'Todoist', icon: ListTodo },
 ];
 
-// Animation variants for Framer Motion
+// Animation variants for the entire container to stagger the children
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Stagger the animation of each child card
+    },
+  },
+};
+
+// Animation variants for each individual item card
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -109,7 +118,7 @@ const UseItemCard: React.FC<{ item: UseItem }> = ({ item }) => {
   return (
     <motion.div
       className="bg-[#1C1C1C] rounded-lg p-4 flex flex-col items-start justify-center space-y-3 border border-gray-700/50 cursor-pointer h-28"
-    //   variants={itemVariants}
+      variants={itemVariants}
       initial="hidden"
       animate="visible"
       whileHover="hover"
@@ -132,10 +141,11 @@ const SectionTitle: React.FC<{ title: string }> = ({ title }) => (
 );
 
 // The main page component
-const UsesPage: NextPage = () => {
+const App = () => {
   return (
-    <div className="bg-[#111111] min-h-screen text-white font-sans">
+    <div className="bg-[#181A1B] min-h-screen text-white font-sans">
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        {/* Main title and description section with a simple fade-in animation */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -147,36 +157,60 @@ const UsesPage: NextPage = () => {
           </p>
         </motion.div>
 
+        {/* Hardware section with staggered card animation */}
         <SectionTitle title="Hardware" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {hardware.map((item) => (
             <UseItemCard key={item.name} item={item} />
           ))}
-        </div>
+        </motion.div>
 
+        {/* Coding section with staggered card animation */}
         <SectionTitle title="Coding" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {coding.map((item) => (
             <UseItemCard key={item.name} item={item} />
           ))}
-        </div>
+        </motion.div>
 
+        {/* Package Managers section with staggered card animation */}
         <SectionTitle title="Package Managers" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {packageManagers.map((item) => (
             <UseItemCard key={item.name} item={item} />
           ))}
-        </div>
+        </motion.div>
 
+        {/* Software section with staggered card animation */}
         <SectionTitle title="Software" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {software.map((item) => (
             <UseItemCard key={item.name} item={item} />
           ))}
-        </div>
+        </motion.div>
       </main>
     </div>
   );
 };
 
-export default UsesPage;
+export default App;

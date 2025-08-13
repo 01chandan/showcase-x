@@ -161,7 +161,7 @@ export default function AboutPage() {
 
 
   return (
-    <main className="bg-[#232323] text-[#E5E5E5] min-h-screen font-sans">
+    <main className="bg-[#181A1B] text-[#E5E5E5] min-h-screen font-sans">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <motion.div
           initial="hidden"
@@ -171,7 +171,7 @@ export default function AboutPage() {
           {/* About Me Section */}
           <motion.section id="about" className="mb-16 md:mb-24">
             <SectionTitle>About Me</SectionTitle>
-            <motion.div variants={itemVariants} className="space-y-5 text-[#E5E5E5] leading-relaxed">
+            <motion.div variants={itemVariants} className="space-y-5 text-gray-300/80 leading-relaxed">
               <p>
                 Hi, I'm <Strong>Chandan Kumar</Strong>  a <Strong>Frontend Developer</Strong> at <Strong>SCDND Estates</Strong>, where I craft modern user interfaces for two different brands using a <Strong>micro-frontend</Strong> approach. I enjoy building fast, user-friendly websites, e-commerce platforms, and SaaS products for businesses of all sizes. Whether it’s creating something from scratch or improving an existing product, I aim to deliver clean design and smooth functionality.
               </p>

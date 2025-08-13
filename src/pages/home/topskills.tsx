@@ -118,7 +118,7 @@ const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => {
 // --- MAIN COMPONENT ---
 const App = () => {
     return (
-        <div className="bg-[#232323] text-white font-sans flex items-center justify-center py-20">
+        <div className="bg-[#181A1B] text-white font-sans flex items-center justify-center py-20">
             <div className="w-full max-w-6xl mx-auto">
                 <div className="text-center mb-16">
                     <h1 className="text-2xl md:text-4xl font-bold mb-3">Technologies I Work With</h1>

@@ -62,7 +62,7 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className=" bg-[#232323] flex items-center justify-center p-6">
+      <main className=" bg-[#181A1B] flex items-center justify-center p-6">
         <div
           ref={containerRef}
           className="w-full mx-auto "

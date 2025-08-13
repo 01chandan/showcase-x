@@ -53,8 +53,6 @@ const servicesData: Service[] = [
   },
 ];
 
-// --- Accordion Item Component (UPDATED FOR SMOOTHER ANIMATION) ---
-// This component renders each individual service in the accordion.
 // It handles its own open/closed state display and animations.
 const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen: boolean; onToggle: () => void; }) => {
   return (
@@ -152,10 +150,7 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
 };
 
 // --- Main App Component ---
-// This is the main component that orchestrates the entire section.
 export default function App() {
-  // State to track which accordion item is currently open.
-  // Defaulting to '02' to match the provided image.
   const [openId, setOpenId] = useState<string | null>('02');
 
   const handleToggle = (id: string) => {
@@ -163,7 +158,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#232323] font-sans text-zinc-900 py-16 sm:py-24">
+    <div className="bg-[#181A1B] font-sans text-zinc-900 py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
