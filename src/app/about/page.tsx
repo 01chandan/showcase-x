@@ -1,10 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, Link as LinkIcon } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import React from 'react';
 import Image from "next/image";
-
-// --- Animation Variants ---
+import { Variants } from "framer-motion";
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -13,16 +12,28 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+
+interface ExperienceRole {
+  title: string;
+  location: string;
+  duration: string;
+  details: string[];
+}
+
+interface Experience {
+  company: string;
+  image?: string;
+  roles: ExperienceRole[];
+}
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: 'spring', stiffness: 100, damping: 10 },
-  },
+  visible: { 
+    y: 0, 
+    opacity: 1, 
+    transition: { type: "spring" as const, stiffness: 120, damping: 20 }
+  }
 };
 
-// --- Sub-components ---
 
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <motion.h2
@@ -37,10 +48,10 @@ const Strong = ({ children }: { children: React.ReactNode }) => (
   <strong className="font-semibold text-gray-100">{children}</strong>
 );
 
-const ExperienceCard = ({ experience }: { experience: any }) => (
+const ExperienceCard = ({ experience }: { experience: Experience }) => (
   <motion.div
     variants={itemVariants}
-    className="bg-[#25282A] rounded-xl p-6 md:p-8 mb-6 ring-1 ring-white/10 shadow-2xl duration-500 "
+    className="bg-[#25282A] rounded-xl p-4 md:p-5 mb-6 ring-1 ring-white/10 shadow-2xl duration-500 "
   >
     {/* Card Header */}
     <div className="flex items-start justify-between gap-4">
@@ -80,10 +91,10 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
       <div className="relative pl-4">
         {/* Vertical line connecting the dots for multi-role experiences */}
         {experience.roles.length > 1 && (
-          <div className="absolute left-[23px] top-3 h-[calc(100%-15rem)] w-[2.5px] bg-white/30 "></div>
+          <div className="absolute left-[23px] top-3 h-20 w-[2.5px] bg-white/30 "></div>
         )}
 
-        {experience.roles.map((role: any, index: number) => {
+        {experience.roles.map((role: ExperienceRole, index: number) => {
           const isCurrent = role.duration.includes('Present');
           return (
             <div key={index} className="relative pl-8 pb-2 last:pb-0">
@@ -98,7 +109,7 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
               <div>
                 <div className="flex items-baseline justify-between">
                   <h4 className="font-semibold text-lg text-sky-400">{role.title}</h4>
-                  <div className="text-sm text-white flex-shrink-0">{role.duration}</div>
+                  {experience.roles.length > 1 &&  <div className="text-sm text-white flex-shrink-0">{role.duration}</div>}
                 </div>
                 {/* For multi-role, show location under each role title */}
                 {experience.roles.length > 1 && (
@@ -108,7 +119,7 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
                   </div>
                 )}
                 {role.details.length > 0 && (
-                  <ul className="list-disc list-outside pl-5 space-y-1 text-[#929495] text-[15px] mt-3">
+                  <ul className="list-disc list-outside pl-5 text-[#929495] text-[15px] mt-2">
                     {role.details.map((detail: string, i: number) => (
                       <li key={i} dangerouslySetInnerHTML={{ __html: detail }}></li>
                     ))}
@@ -124,27 +135,24 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
 );
 
 
-// --- Main Page Component ---
 
 export default function AboutPage() {
 
-  // --- Data from Resume ---
-  // Updated data structure to group roles by company
   const experienceData = [
     {
       company: "SCDND Estates Pvt Ltd.",
       image: "/assets/scdnd.webp",
       roles: [{
         title: "Frontend Developer",
-        location: "Greater Noida",
+        location: "Greater Noida, India",
         duration: "May 2024 - Present",
         details: [
-          "Contributed to developing, enhancing, and optimizing the <Strong>SCDND company Portal</Strong> and internal search platforms, utilizing modern technologies to improve performance, scalability, and user experience.",
-          "Built an <Strong>automated billing and invoicing system</Strong> to manage client records & reduce manual calculation errors.",
-          "Built modern website using <Strong>React.js</Strong>, <Strong>Tailwind CSS</Strong>, and <Strong>JavaScript</Strong>, with smooth animations via <Strong>GSAP</Strong> & Component libraries.",
-          "Collaborated to build an <Strong>AI feature</Strong> on an internal search platform leveraging <Strong>Retrieval-Augmented Generation (RAG)</Strong> to summarize queries using <Strong>Gemini LLM</Strong>, delivering appropriate responses for users.",
-          "Contributed to building a <Strong>Project management dashboard</Strong> feature to track work progress, deliver tasks on time, manage files and improve backend performance by optimizing local storage.",
-          "Building a <Strong>file-sharing system</Strong> document access, Integrated <Strong>AWS OpenSearch</Strong> for fast, efficient document retrieval."
+          "Contributed to developing, enhancing, and optimizing the SCDND company Portal and internal search platforms, utilizing modern technologies to improve performance, scalability, and user experience.",
+          "Built an automated billing and invoicing system to manage client records & reduce manual calculation errors.",
+          "Built modern website using React.js, Tailwind CSS, and JavaScript, with smooth animations via GSAP & Component libraries.",
+          "Collaborated to build an AI feature on an internal search platform leveraging Retrieval-Augmented Generation (RAG) to summarize queries using Gemini LLM, delivering appropriate responses for users.",
+          "Contributed to building a Project management dashboard feature to track work progress, deliver tasks on time, manage files and improve backend performance by optimizing local storage.",
+          "Building a file-sharing system document access, Integrated AWS OpenSearch for fast, efficient document retrieval."
         ]
       }]
     },
@@ -154,19 +162,19 @@ export default function AboutPage() {
       roles: [
         {
           title: "Web Developer",
-          location: "Noida",
-          duration: "Apr 2023 - Jun 2024",
+          location: "Noida, India",
+          duration: "July 2023 - Jun 2024",
           details: []
         },
         {
           title: "Frontend Developer",
-          location: "Noida",
-          duration: "Apr 2023 - Jun 2024",
+          location: "Noida, India",
+          duration: "Apr 2023 - Jun 2023",
           details: [
-            "Developed an <Strong>e-learning platform</Strong> and managed <Strong>LMS integration</Strong> via <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong>.",
-            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized <Strong>React.js</Strong>, <Strong>JavaScript</Strong> & <Strong>Tailwind CSS</Strong> for rendering and optimization. Implemented <Strong>SEO strategies</Strong> for boost visibility.",
-            "Developed a dynamic <Strong>marksheet portal feature</Strong>, enabling secure access, download of student marksheets and certificates.",
-            "Built a play school website using <Strong>React.js</Strong> & <Strong>Tailwind CSS</Strong>. Integrated 3rd party enquire handling service. Deployed project on <Strong>Firebase</Strong>, and implemented <Strong>SEO best practices</Strong> for enhancing the institute's online presence."
+            "Developed an e-learning platform and managed LMS integration via Graphy.io and Classplus.",
+            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized React.js, JavaScript & Tailwind CSS for rendering and optimization. Implemented SEO strategies for boost visibility.",
+            "Developed a dynamic marksheet portal feature, enabling secure access, download of student marksheets and certificates.",
+            "Built a play school website using React.js & Tailwind CSS. Integrated 3rd party enquire handling service. Deployed project on Firebase, and implemented SEO best practices for enhancing the institute&apos;s online presence."
           ]
         }
       ]
@@ -177,13 +185,13 @@ export default function AboutPage() {
       roles: [
         {
           title: "Sr. IT Trainer",
-          location: "New Delhi",
+          location: "New Delhi, India",
           duration: "Apr 2023 - Jun 2024",
           details: [
-            "Developed an <Strong>e-learning platform</Strong> and managed <Strong>LMS integration</Strong> via <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong>.",
-            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized <Strong>React.js</Strong>, <Strong>JavaScript</Strong> & <Strong>Tailwind CSS</Strong> for rendering and optimization. Implemented <Strong>SEO strategies</Strong> for boost visibility.",
-            "Developed a dynamic <Strong>marksheet portal feature</Strong>, enabling secure access, download of student marksheets and certificates.",
-            "Built a play school website using <Strong>React.js</Strong> & <Strong>Tailwind CSS</Strong>. Integrated 3rd party enquire handling service. Deployed project on <Strong>Firebase</Strong>, and implemented <Strong>SEO best practices</Strong> for enhancing the institute's online presence."
+            "Developed an e-learning platform and managed LMS integration via Graphy.io and Classplus.",
+            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized React.js, JavaScript & Tailwind CSS for rendering and optimization. Implemented SEO strategies for boost visibility.",
+            "Developed a dynamic marksheet portal feature, enabling secure access, download of student marksheets and certificates.",
+            "Built a play school website using React.js & Tailwind CSS. Integrated 3rd party enquire handling service. Deployed project on Firebase, and implemented SEO best practices for enhancing the institute&apos;s online presence."
           ]
         }
       ]
@@ -223,7 +231,7 @@ export default function AboutPage() {
               variants={itemVariants}
               className="mt-10"
             >
-              <h2 className="mb-4 font-semibold">Here's a little about my preferred stack:</h2>
+              <h2 className="mb-4 font-semibold">Here&apos;s a little about my preferred stack:</h2>
               <ul className="list-disc pl-5 space-y-2 text-gray-300">
                 <li><Strong>Framework & Libraries:</Strong> Next.js, React.js</li>
                 <li><Strong>Database:</Strong> MongoDB, Supabase</li>

@@ -25,9 +25,8 @@ import {
   Figma,
   Music
 } from 'lucide-react';
+import { Variants } from "framer-motion";
 
-// Define the type for the items in our lists
-// Using React.ElementType is a more general and robust way to handle icon components
 interface UseItem {
   name: string;
   icon: React.ElementType;
@@ -91,7 +90,7 @@ const containerVariants = {
 };
 
 // Animation variants for each individual item card
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

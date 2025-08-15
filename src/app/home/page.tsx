@@ -6,7 +6,6 @@ import Head from "next/head";
 import {
   Mail,
   MapPin,
-  Figma,
   Code,
   Layout,
   Layers,
@@ -38,8 +37,7 @@ const Home: NextPage = () => {
   };
 
   // Bottom marquee icons list
-  const icons = [
-    <Figma key="figma" size={20} />,
+  const icons: React.ReactElement<SVGSVGElement>[] = [
     <Code key="code" size={20} />,
     <Layout key="layout" size={20} />,
     <Layers key="layers" size={20} />,
@@ -55,11 +53,6 @@ const Home: NextPage = () => {
       <Head>
         <title>Chandan — Portfolio Hero</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Fonts: Inter */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <main className=" bg-[#181A1B] flex items-center justify-center p-6">
@@ -107,7 +100,7 @@ const Home: NextPage = () => {
                 </div>
               </motion.div>
 
-              {/* Right parallax tag (Hi, I'm Chandan) */}
+              {/* Right parallax tag (Hi, I&apos;m Chandan) */}
               <motion.div
                 style={{ x: rightTagX, y: rightTagY }}
                 className="absolute right-16 top-28 hidden sm:flex items-center"
@@ -119,7 +112,7 @@ const Home: NextPage = () => {
                     style={{ transform: "translateY(-4px) rotate(166deg)" }}
                   />
                   <div className="relative bg-gray-200/80 text-gray-900 px-3 py-2 rounded-md text-sm shadow-sm">
-                    Hi, I'm Chandan
+                    Hi, I&apos;m Chandan
                   </div>
                 </div>
               </motion.div>
@@ -195,7 +188,7 @@ const Home: NextPage = () => {
                           key={`icon1-${i}`}
                           className="opacity-60 hover:opacity-100 transition text-gray-400"
                         >
-                          {React.cloneElement(icon as any)}
+                          {React.cloneElement(icon)}
                         </div>
                       ))}
                     </div>
@@ -207,7 +200,7 @@ const Home: NextPage = () => {
                           key={`icon2-${i}`}
                           className="opacity-60 hover:opacity-100 transition text-gray-400"
                         >
-                          {React.cloneElement(icon as any)}
+                          {React.cloneElement(icon)}
                         </div>
                       ))}
                     </div>

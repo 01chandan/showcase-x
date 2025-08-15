@@ -1,13 +1,11 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Sun, Moon, Menu, X, Download, Loader2 } from 'lucide-react';
+import { Menu, X, Download, Loader2 } from 'lucide-react';
 import Link from 'next/link'
 export default function App() {
     // State to manage the active navigation link
     const [activePage, setActivePage] = useState('Home');
-    // State to manage the theme (light/dark)
-    const [theme, setTheme] = useState('dark');
     // State to manage the mobile menu visibility
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     // State to manage the resume download animation
@@ -16,19 +14,6 @@ export default function App() {
     // Navigation items
     const navItems = ['Home', 'About', 'Creations', 'Uses'];
 
-    // Effect to apply the theme class to the HTML element
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [theme]);
-
-    // Function to toggle the theme
-    const toggleTheme = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
 
     // Function to toggle the mobile menu
     const toggleMenu = () => {

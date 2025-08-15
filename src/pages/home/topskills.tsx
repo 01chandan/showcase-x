@@ -15,7 +15,7 @@ import {
     Wind,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { Variants } from "framer-motion";
 const skillsData = [
     { name: 'HTML', icon: FileCode },
     { name: 'CSS', icon: Palette },
@@ -35,7 +35,7 @@ const skillsData = [
     { name: 'C++', icon: FileCode },
 ];
 
-// --- ANIMATION VARIANTS FOR FRAMER MOTION ---
+//  ANIMATION VARIANTS FOR FRAMER MOTION 
 
 // Animation for the container of the skill cards to stagger the children
 const containerVariants = {
@@ -52,7 +52,7 @@ type Skill = {
     icon: React.ElementType;
 };
 // Animation for each individual skill card
-const itemVariants = {
+const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
         y: 0,
@@ -65,8 +65,7 @@ const itemVariants = {
     },
 };
 
-// --- SKILL CARD COMPONENT ---
-// Re-designed with a dynamic radial gradient and border-image hover effect.
+//  SKILL CARD COMPONENT 
 const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => {
     const Icon = skill.icon;
     const cardRef = useRef<HTMLDivElement>(null);
@@ -115,7 +114,7 @@ const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => {
 };
 
 
-// --- MAIN COMPONENT ---
+//  MAIN COMPONENT 
 const App = () => {
     return (
         <div className="bg-[#181A1B] text-white font-sans flex items-center justify-center py-20">

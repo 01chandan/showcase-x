@@ -1,10 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, ArrowRight, Sparkles } from 'lucide-react';
-
-// --- TYPE DEFINITION ---
-// Defines the structure for each service item.
+import { Plus, ArrowRight } from 'lucide-react';
+import Image from "next/image";
+//  TYPE DEFINITION 
 type Service = {
   id: string;
   title: string;
@@ -13,8 +12,7 @@ type Service = {
   imageUrl: string;
 };
 
-// --- MOCK DATA ---
-// An array of service objects, mirroring the content from the UI image.
+//  MOCK DATA 
 const servicesData: Service[] = [
   {
     id: '01',
@@ -120,23 +118,23 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
               </div>
               <p className="text-zinc-400 mb-6 text-[15px] max-w-5xl">{service.description}</p>
               <div className=" overflow-hidden grid grid-cols-2 gap-2.5">
-                <img
+                <Image
                   src={service.imageUrl}
                   alt={`${service.title} illustration`}
                   className="w-full h-[300px] object-cover rounded-3xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.onerror = null; 
+                    target.onerror = null;
                     target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
                   }}
                 />
-                <img
+                <Image
                   src={service.imageUrl}
                   alt={`${service.title} illustration`}
                   className="w-full h-[300px] object-cover rounded-3xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.onerror = null; 
+                    target.onerror = null;
                     target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
                   }}
                 />
@@ -149,7 +147,7 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
   );
 };
 
-// --- Main App Component ---
+//  Main App Component 
 export default function App() {
   const [openId, setOpenId] = useState<string | null>('02');
 
@@ -160,7 +158,7 @@ export default function App() {
   return (
     <div className="bg-[#181A1B] font-sans text-zinc-900 py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 md:mb-16">
           <div>
