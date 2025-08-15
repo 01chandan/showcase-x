@@ -69,7 +69,7 @@ const Home: NextPage = () => {
           aria-hidden={false}
         >
           {/* Glassmorphic panel */}
-          <div className="relative bg-black/40 backdrop-blur-md rounded-3xl shadow-lg p-6 md:p-10 h-screen overflow-hidden">
+          <div className="relative backdrop-blur-md rounded-3xl shadow-lg p-6 md:p-10 h-screen overflow-hidden">
             {/* subtle outer padding shadow effect */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none -z-10" />
 

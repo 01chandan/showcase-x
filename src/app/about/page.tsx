@@ -1,7 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Building, Calendar, MapPin, Link as LinkIcon } from 'lucide-react';
+import { MapPin, Link as LinkIcon } from 'lucide-react';
 import React from 'react';
+import Image from "next/image";
 
 // --- Animation Variants ---
 const containerVariants = {
@@ -26,73 +27,101 @@ const itemVariants = {
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <motion.h2
     variants={itemVariants}
-    className="text-3xl md:text-4xl font-bold text-slate-100 mb-8 md:mb-12"
+    className="text-3xl md:text-4xl font-bold text-gray-100 mb-8 md:mb-12"
   >
     {children}
   </motion.h2>
 );
 
 const Strong = ({ children }: { children: React.ReactNode }) => (
-  <strong className="font-semibold text-slate-100">{children}</strong>
+  <strong className="font-semibold text-gray-100">{children}</strong>
 );
-
 
 const ExperienceCard = ({ experience }: { experience: any }) => (
   <motion.div
     variants={itemVariants}
-    className="bg-[#25282b] rounded-xl p-6 md:p-8 mb-6 ring-1 ring-white/10 shadow-2xl duration-500 hover:shadow-blue-500/20"
+    className="bg-[#25282A] rounded-xl p-6 md:p-8 mb-6 ring-1 ring-white/10 shadow-2xl duration-500 "
   >
     {/* Card Header */}
     <div className="flex items-start justify-between gap-4">
       <div className="flex items-start">
-        <div className="w-12 h-12 rounded-md bg-slate-700 flex items-center justify-center font-bold text-xl text-slate-100">
-          {experience.company.charAt(0)}
+        <div className="w-12 h-12 rounded-md bg-white flex items-center justify-center font-bold text-xl text-gray-100 flex-shrink-0">
+          {experience.image ? (
+            <Image
+              src={experience.image}
+              alt={experience.company}
+              width={48}
+              height={48}
+              className="object-cover rounded-md p-1"
+            />
+          ) : (
+            experience.company.charAt(0)
+          )}
         </div>
         <div className="ml-4">
-          <h3 className="text-xl font-bold text-slate-100">{experience.company}</h3>
+          <h3 className="text-xl font-medium text-white">{experience.company}</h3>
+          {/* Show location under company only for single-role experiences */}
+          {experience.roles.length === 1 && (
+            <div className="flex items-center text-sm text-gray-400 mt-1">
+              <MapPin size={14} className="mr-1.5  text-gray-400" />
+              <span>{experience.roles[0].location}</span>
+            </div>
+          )}
         </div>
       </div>
-      <div className="text-sm text-slate-400 text-right flex-shrink-0">
-        <div>{experience.duration}</div>
+      <div className="text-sm text-white text-right flex-shrink-0">
+        {/* Show overall duration only for single-role experiences */}
+        {experience.roles.length === 1 && <div>{experience.roles[0].duration}</div>}
       </div>
     </div>
 
     {/* Roles Section */}
     <div className="mt-6">
-      <div className="relative pl-8">
-        {/* Timeline Dot */}
-        <div className="absolute left-0 top-2">
-          <div className="w-4 h-4 bg-slate-900 rounded-full flex items-center justify-center ring-4 ring-slate-800/80">
-            <div className="w-2 h-2 bg-sky-400 rounded-full"></div>
-          </div>
-        </div>
+      <div className="relative pl-4">
+        {/* Vertical line connecting the dots for multi-role experiences */}
+        {experience.roles.length > 1 && (
+          <div className="absolute left-[22px] top-3 h-[calc(100%-15rem)] w-[3px] bg-gray-500"></div>
+        )}
 
-        {/* Role Details */}
-        <div className="pb-4">
-          <h4 className="font-semibold text-lg text-sky-400">{experience.title}</h4>
-          <div className="flex flex-wrap items-center text-sm text-slate-500 mt-1 mb-3 gap-x-4 gap-y-1">
-            <div className="flex items-center">
-              <MapPin size={14} className="mr-1.5" />
-              <span>{experience.location}</span>
+        {experience.roles.map((role: any, index: number) => {
+          const isCurrent = role.duration.includes('Present');
+          return (
+            <div key={index} className="relative pl-8 pb-2 last:pb-0">
+              {/* Timeline Dot */}
+              <div className="absolute left-0 top-1.5">
+                <div className="w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center ring-4 ring-gray-800/80">
+                  <div className={`w-2 h-2 bg-sky-400 rounded-full ${isCurrent ? 'animate-pulse' : ''}`}></div>
+                </div>
+              </div>
+
+              {/* Role Details */}
+              <div>
+                <div className="flex items-baseline justify-between">
+                  <h4 className="font-semibold text-lg text-sky-400">{role.title}</h4>
+                  <div className="text-sm text-gray-400 flex-shrink-0">{role.duration}</div>
+                </div>
+                {/* For multi-role, show location under each role title */}
+                {experience.roles.length > 1 && (
+                  <div className="flex items-center text-sm text-gray-500 mt-1 mb-3">
+                    <MapPin size={14} className="mr-1.5" />
+                    <span>{role.location}</span>
+                  </div>
+                )}
+                {role.details.length > 0 && (
+                  <ul className="list-disc list-outside pl-5 space-y-2 text-gray-400 text-[15px] mt-3">
+                    {role.details.map((detail: string, i: number) => (
+                      <li key={i} dangerouslySetInnerHTML={{ __html: detail }}></li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
-            <div className="flex items-center">
-              <Calendar size={14} className="mr-1.5" />
-              <span>{experience.duration}</span>
-            </div>
-          </div>
-          {experience.details.length > 0 && (
-            <ul className="list-disc list-outside pl-5 space-y-2 text-slate-400 text-[15px]">
-              {experience.details.map((detail: string, i: number) => (
-                <li key={i} dangerouslySetInnerHTML={{ __html: detail }}></li>
-              ))}
-            </ul>
-          )}
-        </div>
+          );
+        })}
       </div>
     </div>
   </motion.div>
 );
-
 
 
 // --- Main Page Component ---
@@ -100,64 +129,66 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
 export default function AboutPage() {
 
   // --- Data from Resume ---
+  // Updated data structure to group roles by company
   const experienceData = [
     {
       company: "SCDND Estates Pvt Ltd.",
-      title: "Frontend Developer",
-      location: "Greater Noida",
-      duration: "May 2024 - Present",
-      details: [
-        "Contributed to developing, enhancing, and optimizing the <Strong>SCDND company Portal</Strong> and internal search platforms, utilizing modern technologies to improve performance, scalability, and user experience.",
-        "Built an <Strong>automated billing and invoicing system</Strong> to manage client records & reduce manual calculation errors.",
-        "Built modern website using <Strong>React.js</Strong>, <Strong>Tailwind CSS</Strong>, and <Strong>JavaScript</Strong>, with smooth animations via <Strong>GSAP</Strong> & Component libraries.",
-        "Collaborated to build an <Strong>AI feature</Strong> on an internal search platform leveraging <Strong>Retrieval-Augmented Generation (RAG)</Strong> to summarize queries using <Strong>Gemini LLM</Strong>, delivering appropriate responses for users.",
-        "Contributed to building a <Strong>Project management dashboard</Strong> feature to track work progress, deliver tasks on time, manage files and improve backend performance by optimizing local storage.",
-        "Building a <Strong>file-sharing system</Strong> document access, Integrated <Strong>AWS OpenSearch</Strong> for fast, efficient document retrieval."
-      ]
+      image: "/assets/scdnd.webp",
+      roles: [{
+        title: "Frontend Developer",
+        location: "Greater Noida",
+        duration: "May 2024 - Present",
+        details: [
+          "Contributed to developing, enhancing, and optimizing the <Strong>SCDND company Portal</Strong> and internal search platforms, utilizing modern technologies to improve performance, scalability, and user experience.",
+          "Built an <Strong>automated billing and invoicing system</Strong> to manage client records & reduce manual calculation errors.",
+          "Built modern website using <Strong>React.js</Strong>, <Strong>Tailwind CSS</Strong>, and <Strong>JavaScript</Strong>, with smooth animations via <Strong>GSAP</Strong> & Component libraries.",
+          "Collaborated to build an <Strong>AI feature</Strong> on an internal search platform leveraging <Strong>Retrieval-Augmented Generation (RAG)</Strong> to summarize queries using <Strong>Gemini LLM</Strong>, delivering appropriate responses for users.",
+          "Contributed to building a <Strong>Project management dashboard</Strong> feature to track work progress, deliver tasks on time, manage files and improve backend performance by optimizing local storage.",
+          "Building a <Strong>file-sharing system</Strong> document access, Integrated <Strong>AWS OpenSearch</Strong> for fast, efficient document retrieval."
+        ]
+      }]
     },
     {
       company: "Excellent Educational Hub Pvt Ltd.",
-      title: "Web Developer",
-      location: "Noida",
-      duration: "Apr 2023 - Jun 2024",
-      details: [
-        "Developed an <Strong>e-learning platform</Strong> and managed <Strong>LMS integration</Strong> via <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong>.",
-        "Built, deployed content-driven website with dynamic pages, responsive design. Utilized <Strong>React.js</Strong>, <Strong>JavaScript</Strong> & <Strong>Tailwind CSS</Strong> for rendering and optimization. Implemented <Strong>SEO strategies</Strong> for boost visibility.",
-        "Developed a dynamic <Strong>marksheet portal feature</Strong>, enabling secure access, download of student marksheets and certificates.",
-        "Built a play school website using <Strong>React.js</Strong> & <Strong>Tailwind CSS</Strong>. Integrated 3rd party enquire handling service. Deployed project on <Strong>Firebase</Strong>, and implemented <Strong>SEO best practices</Strong> for enhancing the institute's online presence."
-      ]
-    }
-  ];
-
-  const projectsData = [
-    {
-      name: "BUWCH Lifestyles",
-      link: "#", // Add your link here
-      details: [
-        "Developed <Strong>role-based dashboards</Strong> for Admin, Suppliers, & Business Users, with tailored features for each user type.",
-        "Contributed to building a fully responsive <Strong>e-commerce web flow</Strong> using <Strong>React.js</Strong>, <Strong>JavaScript</Strong>, and <Strong>Tailwind CSS</Strong>. Utilized <Strong>Framer Motion</Strong> and component libraries for modern animations.",
-        ""
+      image: "/assets/excellent.webp",
+      roles: [
+        {
+          title: "Web Developer",
+          location: "Noida",
+          duration: "Apr 2023 - Jun 2024",
+          details: []
+        },
+        {
+          title: "Frontend Developer",
+          location: "Noida",
+          duration: "Apr 2023 - Jun 2024",
+          details: [
+            "Developed an <Strong>e-learning platform</Strong> and managed <Strong>LMS integration</Strong> via <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong>.",
+            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized <Strong>React.js</Strong>, <Strong>JavaScript</Strong> & <Strong>Tailwind CSS</Strong> for rendering and optimization. Implemented <Strong>SEO strategies</Strong> for boost visibility.",
+            "Developed a dynamic <Strong>marksheet portal feature</Strong>, enabling secure access, download of student marksheets and certificates.",
+            "Built a play school website using <Strong>React.js</Strong> & <Strong>Tailwind CSS</Strong>. Integrated 3rd party enquire handling service. Deployed project on <Strong>Firebase</Strong>, and implemented <Strong>SEO best practices</Strong> for enhancing the institute's online presence."
+          ]
+        }
       ]
     },
     {
-      name: "SCDND Estates Pvt Ltd",
-      link: "#", // Add your link here
-      details: [
-        "Built from scratch a <Strong>rich text editor</Strong> to create and schedule dynamic blog content for SEO purposes.",
-        "Implemented a <Strong>micro-frontend architecture</Strong> for independent development and faster deployment.",
-        "Built <Strong>automated accounting ledgers</Strong> and <Strong>profit & loss statements</Strong> for tracking & managing user records."
+      company: "Katha.org",
+      image: "/assets/katha.webp",
+      roles: [
+        {
+          title: "Sr. IT Trainer",
+          location: "New Delhi",
+          duration: "Apr 2023 - Jun 2024",
+          details: [
+            "Developed an <Strong>e-learning platform</Strong> and managed <Strong>LMS integration</Strong> via <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong>.",
+            "Built, deployed content-driven website with dynamic pages, responsive design. Utilized <Strong>React.js</Strong>, <Strong>JavaScript</Strong> & <Strong>Tailwind CSS</Strong> for rendering and optimization. Implemented <Strong>SEO strategies</Strong> for boost visibility.",
+            "Developed a dynamic <Strong>marksheet portal feature</Strong>, enabling secure access, download of student marksheets and certificates.",
+            "Built a play school website using <Strong>React.js</Strong> & <Strong>Tailwind CSS</Strong>. Integrated 3rd party enquire handling service. Deployed project on <Strong>Firebase</Strong>, and implemented <Strong>SEO best practices</Strong> for enhancing the institute's online presence."
+          ]
+        }
       ]
     }
   ];
-
-  const preferredStack = {
-    title: "Here's a little about my preferred stack:",
-    items: [
-      "Framework & Libraries: Next.js, React.js",
-      "Database: MongoDB, Supabase",
-      "CSS: TailwindCSS"
-    ]
-  };
 
 
   return (
@@ -171,32 +202,36 @@ export default function AboutPage() {
           {/* About Me Section */}
           <motion.section id="about" className="mb-16 md:mb-24">
             <SectionTitle>About Me</SectionTitle>
-            <motion.div variants={itemVariants} className="space-y-5 text-gray-300/80 leading-relaxed">
+            <motion.div variants={itemVariants} className="space-y-5 text-gray-300/90 leading-relaxed">
               <p>
-                Hi, I'm <Strong>Chandan Kumar</Strong>  a <Strong>Frontend Developer</Strong> at <Strong>SCDND Estates</Strong>, where I craft modern user interfaces for two different brands using a <Strong>micro-frontend</Strong> approach. I enjoy building fast, user-friendly websites, e-commerce platforms, and SaaS products for businesses of all sizes. Whether it’s creating something from scratch or improving an existing product, I aim to deliver clean design and smooth functionality.
+                Hello! I’m <Strong>Chandan Kumar</Strong>, a passionate Frontend Developer from India who loves creating  <Strong> seemless features </Strong> and <Strong>building products</Strong>. I enjoy making websites that are easy to use, well-designed, and work smoothly. Whether I’m designing interfaces or writing code, I love solving problems and creating <Strong>automated digital solutions. </Strong>
               </p>
               <p>
-                My tech journey began at <Strong>16</Strong> — back when I didn’t even own a PC. I’d spend hours at a cyber café designing logos and playing with MS Paint. That curiosity led me to my first programming language, <Strong>C Programming</Strong> and from there I dived into frontend technologies and modern web development. One of my first real projects was building a tuition coaching website in college simple, but a proud milestone that set my path in motion.
+                My tech journey began at <Strong>15</Strong> - back when I didn’t even own a PC. I’d spend hours at a cyber café designing <Strong>logos</Strong> and playing with MS Paint. That curiosity led me to my first programming language, <Strong>C Programming</Strong> and from there I dived into <Strong>frontend technologies </Strong> and modern web development. One of my first real projects was building a tuition coaching website in college simple, but a proud milestone that set my path in motion.
               </p>
               <p>
-                Today, I’ve developed multiple web applications for personal projects, freelance clients, and companies. My work spans JavaScript frameworks like <Strong>React</Strong> and <Strong>Next.js</Strong>, back-end tools such as <Strong>Express</Strong> and <Strong>Django</Strong>, and cloud platforms like <Strong>AWS</Strong> and <Strong>Google Cloud</Strong>. I’ve also worked with learning platforms like <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong> to deliver engaging online experiences.
+                Today, I’ve developed multiple web applications for <Strong>personal projects</Strong>, freelance clients, and companies. My work spans JavaScript frameworks like <Strong>React</Strong> and <Strong>Next.js</Strong>, back-end tools such as <Strong>Express</Strong> and <Strong>Django</Strong>, and cloud platforms like <Strong>Google Cloud</Strong> and <Strong>AWS</Strong>. I’ve also worked with learning platforms like <Strong>Graphy.io</Strong> and <Strong>Classplus</Strong> to deliver engaging online experiences.
               </p>
               <p>
-                Over the years, I’ve learned that building great products is about more than just writing code — it’s about creating scalable, maintainable solutions that users actually enjoy. My go-to stack is <Strong>React</Strong> and <Strong>Next.js</Strong> for the frontend, <Strong>Express</Strong> for the backend, and <Strong>AWS</Strong> or <Strong>Vercel</Strong> for deployment. Every project is a new challenge, and that’s what keeps me hooked.
+                Over the years, I’ve learned that building great products is about more than just writing code - it’s about creating scalable, maintainable solutions that users actually enjoy. My go-to stack is <Strong>React</Strong> and <Strong>Next.js</Strong> for the frontend, <Strong>Django</Strong> for the backend, and <Strong>Firebase</Strong> or <Strong>Vercel</Strong> for deployment. Every project is a new challenge, and that’s what keeps me hooked.
               </p>
               <p>
-                Outside of coding, I teach and record online lectures, watch sci-fi and thriller movies, and brainstorm startup ideas — often while untangling my latest batch of syntax errors. I also love exploring new places, attending tech events, and discovering fresh ideas along the way.
+                Outside of coding, I teach and record <Strong>online lectures</Strong>, watch thriller movies, and brainstorm startup ideas - often while untangling my latest batch of syntax errors. I also love exploring new places, attending <Strong>tech events</Strong>, and discovering fresh ideas along the way.
               </p>
             </motion.div>
-
             <motion.div
               variants={itemVariants}
-              className="mt-10">
-              <h3 className="font-semibold text-lg text-slate-200 mb-3">{preferredStack.title}</h3>
-              <ul className="list-disc text-lg list-inside text-slate-400 space-y-1">
-                {preferredStack.items.map((item, i) => <li key={i}>{item}</li>)}
+              className="mt-10"
+            >
+              <h2 className="mb-4 font-semibold">Here's a little about my preferred stack:</h2>
+              <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                <li><Strong>Framework & Libraries:</Strong> Next.js, React.js</li>
+                <li><Strong>Database:</Strong> MongoDB, Supabase</li>
+                <li><Strong>CSS:</Strong> TailwindCSS</li>
+                <li><Strong>Animation Library:</Strong> GSAP & Framer Motion</li>
               </ul>
             </motion.div>
+
           </motion.section>
 
           {/* Experience Section */}

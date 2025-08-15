@@ -61,7 +61,7 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
       onClick={onToggle}
       // We apply a spring transition to the layout change itself. This makes the container resize smoothly.
       transition={{ type: 'spring', damping: 20, stiffness: 150 }}
-      className={`cursor-pointer overflow-hidden rounded-xl transition-colors duration-300 ${isOpen ? 'bg-zinc-900 text-white' : 'bg-gray-100/20 hover:bg-gray-200/40 text-zinc-900'}`}
+      className={`cursor-pointer overflow-hidden rounded-xl transition-colors duration-300 ${isOpen ? 'bg-white/10 text-white' : 'bg-gray-100/20 hover:bg-gray-200/40 text-zinc-900'}`}
     >
       <motion.div layout className="flex items-center justify-between p-3 md:p-4">
         <div className="flex items-center gap-4 md:gap-6">

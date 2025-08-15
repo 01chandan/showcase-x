@@ -81,7 +81,7 @@ export default function App() {
         <div className=" text-gray-900 dark:text-white  transition-colors duration-500">
             <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm ">
 
-                <header className="max-w-7xl mx-auto bg-[#151515] px-2 py-1.5 mt-2 rounded-full">
+                <header className="max-w-7xl mx-auto  px-2 py-2 rounded-xl">
                     <div className="container mx-auto flex justify-between items-center">
                         {/* Left Side: Brand Name */}
                         <motion.div
@@ -108,7 +108,7 @@ export default function App() {
                                         setActivePage(item);
                                         setIsMenuOpen(false); // Close menu on click
                                     }}
-                                    className="text-base w-full text-center px-2 py-1 rounded-md text-[#ffffff] dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-sky-900 transition-colors duration-300"
+                                    className="text-base w-full text-center px-2 py-0.5 rounded-md text-[#ffffff] dark:text-gray-200 hover:bg-gray-100/20 dark:hover:bg-sky-900 transition-colors duration-300"
                                     style={activePage === item ? activeLinkStyle : {}}
                                 >
                                     {item}
@@ -125,7 +125,7 @@ export default function App() {
                         >
                             <button
                                 onClick={handleResumeDownload}
-                                className="hidden sm:flex items-center justify-center gap-2 px-2 py-1.5 w-[120px] text-sm md:text-[15px] bg-sky-500 text-white cursor-pointer rounded-full hover:bg-sky-600 transition-all duration-300 disabled:bg-sky-400 disabled:cursor-not-allowed"
+                                className="hidden sm:flex items-center justify-center gap-2 px-2 py-1.5 w-[120px] text-sm md:text-[15px] bg-sky-500 text-white cursor-pointer rounded-xl hover:bg-sky-600 transition-all duration-300 disabled:bg-sky-400 disabled:cursor-not-allowed"
                                 disabled={isDownloading}
                             >
                                 {isDownloading ? (
