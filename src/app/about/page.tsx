@@ -76,11 +76,11 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
     </div>
 
     {/* Roles Section */}
-    <div className="mt-6">
+    <div className="mt-4">
       <div className="relative pl-4">
         {/* Vertical line connecting the dots for multi-role experiences */}
         {experience.roles.length > 1 && (
-          <div className="absolute left-[22px] top-3 h-[calc(100%-15rem)] w-[3px] bg-gray-500"></div>
+          <div className="absolute left-[23px] top-3 h-[calc(100%-15rem)] w-[2.5px] bg-white/30 "></div>
         )}
 
         {experience.roles.map((role: any, index: number) => {
@@ -98,17 +98,17 @@ const ExperienceCard = ({ experience }: { experience: any }) => (
               <div>
                 <div className="flex items-baseline justify-between">
                   <h4 className="font-semibold text-lg text-sky-400">{role.title}</h4>
-                  <div className="text-sm text-gray-400 flex-shrink-0">{role.duration}</div>
+                  <div className="text-sm text-white flex-shrink-0">{role.duration}</div>
                 </div>
                 {/* For multi-role, show location under each role title */}
                 {experience.roles.length > 1 && (
-                  <div className="flex items-center text-sm text-gray-500 mt-1 mb-3">
+                  <div className="flex items-center text-sm text-gray-400 mt-1 mb-3">
                     <MapPin size={14} className="mr-1.5" />
                     <span>{role.location}</span>
                   </div>
                 )}
                 {role.details.length > 0 && (
-                  <ul className="list-disc list-outside pl-5 space-y-2 text-gray-400 text-[15px] mt-3">
+                  <ul className="list-disc list-outside pl-5 space-y-1 text-[#929495] text-[15px] mt-3">
                     {role.details.map((detail: string, i: number) => (
                       <li key={i} dangerouslySetInnerHTML={{ __html: detail }}></li>
                     ))}
