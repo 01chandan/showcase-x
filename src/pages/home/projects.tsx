@@ -117,27 +117,31 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
                 ))}
               </div>
               <p className="text-zinc-400 mb-6 text-[15px] max-w-5xl">{service.description}</p>
-              <div className=" overflow-hidden grid grid-cols-2 gap-2.5">
-                <Image
+              <div className=" overflow-hidden grid grid-cols-2 gap-2.5 ">
+                {/* <Image
                   src={service.imageUrl}
                   alt={`${service.title} illustration`}
-                  className="w-full h-[300px] object-cover rounded-3xl"
+                  width={600}
+                  height={300}
+                  className="object-cover rounded-3xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.onerror = null;
-                    target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
+                    // target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
                   }}
                 />
                 <Image
                   src={service.imageUrl}
                   alt={`${service.title} illustration`}
-                  className="w-full h-[300px] object-cover rounded-3xl"
+                  width={600}
+                  height={300}
+                  className="object-cover rounded-3xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.onerror = null;
-                    target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
+                    // target.src = 'https://placehold.co/600x400/ff0000/ffffff?text=Image+Error';
                   }}
-                />
+                /> */}
               </div>
             </div>
           </motion.div>
@@ -149,7 +153,7 @@ const AccordionItem = ({ service, isOpen, onToggle }: { service: Service; isOpen
 
 //  Main App Component 
 export default function App() {
-  const [openId, setOpenId] = useState<string | null>('02');
+  const [openId, setOpenId] = useState<string | null>('01');
 
   const handleToggle = (id: string) => {
     setOpenId(openId === id ? null : id);
