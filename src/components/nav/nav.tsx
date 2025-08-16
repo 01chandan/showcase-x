@@ -29,8 +29,6 @@ export default function App() {
 
         // Simulate a network delay for the animation
         setTimeout(() => {
-            // This is a base64 encoded string of a simple, one-page PDF file.
-            // In a real application, you would fetch your actual resume file.
             const pdfBase64 = "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovT3V0bGluZXMgMiAwIFIKL1BhZ2VzIDMgMCBSCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9UeXBlIC9PdXRsaW5lcwovQ291bnQgMAo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHMgWzQgMCBSXQovQ291bnQgMQo+PgplbmRvYmoKNCAtMiAwIG9iago8PAovVHlwZSAvUGFnZQovUGFyZW50IDMgMCBSCi9SZXNvdXJjZXMgPDwKL0ZvbnQgPDwKL0YxIDYgMCBSCj4+Ci9Qcm9jU2V0IFsvUERGLyBUZXh0XQo+PgovTWVkaWFCb3ggWzAgMCA1OTUgODQyXQovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0xlbmd0aCA1NQo+PgpzdHJlYW0KQkQKBTQgMCBUZCAvRjEgMTIgVGYgKFRoaXMgaXMgYSBkdW1teSByZXN1bWUuKSBUagplbmRzdHJlYW0KZW5kb2JqCjYgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL1N1YnR5cGUgL1R5cGUxCi9CYXNlRm9udCAvSGVsdmV0aWNhCj4+CmVuZG9iagp4cmVmCjAgNwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA2MyAwMDAwMCBuIAowMDAwMDAwMTEzIDAwMDAwIG4gCjAwMDAwMDAxNjIgMDAwMDAgbiAKMDAwMDAwMDMwMyAwMDAwMCBuIAowMDAwMDAwMzYyIDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgNgovUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDAyCiUlRU9GCg==";
 
             // Convert base64 to a blob
@@ -58,7 +56,7 @@ export default function App() {
 
     // Style for the active navigation link
     const activeLinkStyle = {
-        color: '#14b8a6', // sky-500
+        color: '#00A6F4', // sky-500
         fontWeight: 'bold',
     };
 
@@ -66,7 +64,7 @@ export default function App() {
         <div className=" text-gray-900 dark:text-white  transition-colors duration-500">
             <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm ">
 
-                <header className="max-w-7xl mx-auto  px-2 py-2 rounded-xl">
+                <header className="max-w-6xl mx-auto  px-2 py-2 rounded-xl">
                     <div className="container mx-auto flex justify-between items-center">
                         {/* Left Side: Brand Name */}
                         <motion.div
