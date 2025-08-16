@@ -14,7 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
+import Notification from "@/components/nav/notification"
 const Home: NextPage = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
         <title>Chandan — Portfolio Hero</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-
+      <Notification />
       <main className=" bg-[#181A1B] flex items-center justify-center p-6">
         <div
           ref={containerRef}
